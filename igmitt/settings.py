@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todolist',
-    'common.apps.CommonConfig',  
+    'common.apps.CommonConfig',
+    'community',
 
 ]
 
