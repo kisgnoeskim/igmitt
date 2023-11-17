@@ -13,7 +13,7 @@
   </head>
   <body>
     <h1 class='logo-text'>이그밋<span>.</span></h1>
-    <h1>할 일({{ today|date:"Y년 n월 j일" }})</h1>
+    <h1>할 일 ({{ today|date:"Y년 n월 j일" }})</h1>
     <ul>
       {% for task in tasks %}
         <li>
@@ -32,7 +32,7 @@
     <div class="bottom-navbar">
       <a href="{% url 'todolist:task_list' %}" class="nav-item">홈</a>
       {% if user.is_authenticated %}
-      <a class="nav-item" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+      <a class="nav-item" href="{% url 'common:logout' %}">로그아웃 ({{ user.username }})</a>
       {% else %}
       <a href="{% url 'common:login' %}" class="nav-item">로그인</a>
       {% endif %}
@@ -46,58 +46,6 @@
         <p class = "bottom-first">이번엔 해낼거야<span>.</span></p>
         <p class = 'bottom-second'><span>I</span>'m <span>G</span>onna <span>M</span>ake <span>I</span>t <span>T</span>his <span>T</span>ime</p>
     </div>
-
-
-    <!-- 스톱워치 왜 안돼 ㅅㅂ
-    <h1>타이머</h1>
-
-    {% csrf_token %}
-    <br>
-    <br>
-    <p id="elapsed_time">{{ stopwatch.elapsed_time }}</p>
-    <button id="start">Start</button>
-    <button id="stop">Stop</button>
-    <button id="reset">Reset</button>
-
-    <script>
-        $(document).ready(function() {
-            function updateElapsedTime() {
-                $.post('', {'action': 'update', csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data) {
-                    $('#elapsed_time').text(data.elapsed_time);
-                });
-            }
-
-            $('#start').click(function() {
-                $.post('', {'action': 'start', csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data) {
-                    updateElapsedTime();
-                });
-            });
-
-            $('#stop').click(function() {
-                $.post('', {'action': 'stop', csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data) {
-                    updateElapsedTime();
-                });
-            });
-
-            $('#reset').click(function() {
-                $.post('', {'action': 'reset', csrfmiddlewaretoken: '{{ csrf_token }}'}, function(data) {
-                    updateElapsedTime();
-                });
-            });
-
-            $.ajaxSetup({
-              beforeSend: function(xhr, settings) {
-                if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-                // Only send the token to relative URLs i.e. locally.
-                xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
-                }
-              }
-            });
-
-            setInterval(updateElapsedTime, 1000);
-        });
-    </script>
-  -->
   
   </body>
 </html>
