@@ -23,5 +23,6 @@ urlpatterns = [
     path('todo/', include('todolist.urls')),
     path('common/', include('common.urls')),
     path('community/', include('community.urls')),
+    path('wishes/', include('wishes.urls')),
     path('', views.index, name='index'),  # '/' 에 해당되는 path
 ]

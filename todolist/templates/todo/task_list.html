@@ -13,7 +13,7 @@
   </head>
   <body>
     <h1 class='logo-text'>이그밋<span>.</span></h1>
-    <h1>할 일(2023.11.12)</h1>
+    <h1>할 일(2023.11.14)</h1>
     <ul>
       {% for task in tasks %}
         <li>
@@ -21,15 +21,16 @@
             <s>{{ task.title }}</s> (완료) 
           {% else %}
             {{ task.title }}
-            <a href="{% url 'complete_task' task.id %}" class='comp'>완료</a>
+            <a href="{% url 'todolist:complete_task' task.id %}" class='comp'>완료</a>
           {% endif %}
-          <a href="{% url 'delete_task' task.id %}" class='del'>삭제</a>
+          <a href="{% url 'todolist:delete_task' task.id %}" class='del'>삭제</a>
         </li>
       {% endfor %}
     </ul>
-    <a href="{% url 'add_task' %}" class='add'>추가하기</a>
+    <a href="{% url 'todolist:add_task' %}" class='add'>추가하기</a>
 
     <div class="bottom-navbar">
+      <a href="{% url 'todolist:task_list' %}" class="nav-item">홈</a>
       {% if user.is_authenticated %}
       <a class="nav-item" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
       {% else %}
@@ -38,7 +39,7 @@
 
       <a href="{% url 'community:question_list' %}" class="nav-item">커뮤니티</a>
 
-      <a href="#" class="nav-item">소원의 돌</a>
+      <a href="{% url 'wishes:wish_list' %}" class="nav-item">소원의 돌</a>
     </div>
 
     <div class="bottom-right-text">

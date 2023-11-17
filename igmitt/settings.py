@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'todolist',
     'common.apps.CommonConfig',
     'community',
-
+    'wishes',
 ]
 
 MIDDLEWARE = [

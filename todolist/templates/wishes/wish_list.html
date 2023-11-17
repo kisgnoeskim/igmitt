@@ -1,0 +1,26 @@
+<!-- wishes/templates/wishes/wish_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wish List</title>
+</head>
+<body>
+    <div class="wish-container">
+        <h1>Wish List</h1>
+        <ul>
+            {% for wish in wishes %}
+                <li>{{ wish.content }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'wishes:add_wish' %}">
+            {% csrf_token %}
+            <label for="wish_content">소원을 입력하세요:</label>
+            <input type="text" name="wish_content" required>
+            <button type="submit">소원 비우기</button>
+        </form>
+    </div>
+</body>
+</html>
