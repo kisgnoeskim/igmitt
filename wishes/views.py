@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import Wish
 from django.views.decorators.http import require_POST
+from django.utils import timezone
+
 
 def wish_list(request):
     wishes = Wish.objects.all()
-    return render(request, 'wishes/wish_list.html', {'wishes': wishes})
+    today = timezone.now()
+    return render(request, 'wishes/wish_list.html', {'wishes': wishes, 'today': today})
 
 @require_POST
 def add_wish(request):

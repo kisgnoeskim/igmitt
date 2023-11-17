@@ -3,13 +3,17 @@ from .models import Task
 from django.views import View
 from django.http import JsonResponse
 from .models import Stopwatch
+from django.utils import timezone
 
 def index(request):
-    return render(request, 'todo/task_list.html')
+    tasks = Task.objects.all()
+    today = timezone.now()
+    return render(request, 'todo/task_list.html', {'tasks': tasks, 'today': today})
 
 def task_list(request):
     tasks = Task.objects.all()
-    return render(request, 'todo/task_list.html', {'tasks': tasks})
+    today = timezone.now()
+    return render(request, 'todo/task_list.html', {'tasks': tasks, 'today': today})
 
 def add_task(request):
     if request.method == 'POST':

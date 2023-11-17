@@ -1,26 +1,48 @@
 <!-- wishes/templates/wishes/wish_list.html -->
+{% block content %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'wish_list.css' %}"
+    />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wish List</title>
+    <link rel="icon" type="image/png" href="{% static 'wish.png' %}">
+    <title>이그밋 - 소원의 돌</title>
 </head>
 <body>
     <div class="wish-container">
-        <h1>Wish List</h1>
+        <h1>소원의 돌</h1>
         <ul>
             {% for wish in wishes %}
-                <li>{{ wish.content }}</li>
+                <li>{{ wish.content }} - {{ today|date:"Y년 n월 j일" }}</li>
             {% endfor %}
         </ul>
         <form method="post" action="{% url 'wishes:add_wish' %}">
             {% csrf_token %}
             <label for="wish_content">소원을 입력하세요:</label>
             <input type="text" name="wish_content" required>
-            <button type="submit">소원 비우기</button>
+            <button type="submit">소원을 들어줘!</button>
         </form>
+    </div>
+
+    <div class="bottom-navbar">
+        <a href="{% url 'todolist:task_list' %}" class="nav-item">홈</a>
+        {% if user.is_authenticated %}
+        <a class="nav-item" href="{% url 'common:logout' %}">{{ user.username }} (로그아웃)</a>
+        {% else %}
+        <a href="{% url 'common:login' %}" class="nav-item">로그인</a>
+        {% endif %}
+    
+        <a href="{% url 'community:question_list' %}" class="nav-item">커뮤니티</a>
+    
+        <a href="{% url 'wishes:wish_list' %}" class="nav-item">소원의 돌</a>
     </div>
 </body>
 </html>
+{% endblock %}

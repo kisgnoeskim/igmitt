@@ -13,7 +13,7 @@
   </head>
   <body>
     <h1 class='logo-text'>이그밋<span>.</span></h1>
-    <h1>할 일(2023.11.14)</h1>
+    <h1>할 일({{ today|date:"Y년 n월 j일" }})</h1>
     <ul>
       {% for task in tasks %}
         <li>
