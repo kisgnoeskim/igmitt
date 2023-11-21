@@ -18,6 +18,8 @@
 <body>
     <div class="wish-container">
         <h1>소원의 돌</h1>
+        <!-- 이미지 추가 -->
+        <img src="{% static 'doll.png' %}" alt="wish" style="max-width: 600px;">
         <ul>
             {% for wish in wishes %}
                 <li>{{ wish.content }} - {{ today|date:"Y년 n월 j일" }}</li>
