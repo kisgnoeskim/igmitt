@@ -10,8 +10,25 @@
     />
     <link rel="icon" type="image/png" href="{% static 'wish.png' %}">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- 이미지 넣는 부분임 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+      .material-symbols-outlined {
+        margin-left: 5px;
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 1000,
+          'GRAD' 0,
+          'opsz' 50; /* 원래 설정값 */
+        font-size: 30px; /* 변경된 부분 */
+}
+      </style>
   </head>
+
   <body>
+    <!-- 투두리스트 -->
     <h1 class='logo-text'>이그밋<span>.</span></h1>
     <h1>할 일 ({{ today|date:"Y년 n월 j일" }})</h1>
     <ul>
@@ -29,6 +46,33 @@
     </ul>
     <a href="{% url 'todolist:add_task' %}" class='add'>추가하기</a>
 
+    <!-- 스톱워치 -->
+    <div style="position: fixed; top: 85px; right: 30px; text-align: right;" class = stop>
+      <h1>타이머⏱️</h1>
+      <p id="stopwatch">
+        00:00:00
+      </p>
+      <div>
+        <button onclick="startClock(0)" class = "stop_btn">시작</button>
+        <button onclick="stopClock(0)" class = "stop_btn">중지</button>
+        <button onclick="resetClock(0)" class = "stop_btn">리셋</button>
+      </div>
+    </div>
+    <script src="{% static 'stopwatch.js' %}" type="text/javascript"></script>
+
+
+    <!-- 명언충 -->
+    {% if quote %}
+        <blockquote class = "ddd">
+            <p>{{ quote.text }} - {{ quote.author }}</p>
+        </blockquote>
+    {% else %}
+        <p>오늘의 명언이 없습니다.</p>
+    {% endif %}
+
+
+
+    <!-- 바텀바 -->
     <div class="bottom-navbar">
       <a href="{% url 'todolist:task_list' %}" class="nav-item">홈</a>
       {% if user.is_authenticated %}
@@ -42,8 +86,8 @@
       <a href="{% url 'wishes:wish_list' %}" class="nav-item">소원의 돌</a>
     </div>
 
+    <!-- 바텀로고 -->
     <div class="bottom-right-text">
-        <p class = "bottom-first">이번엔 해낼거야<span>.</span></p>
         <p class = 'bottom-second'><span>I</span>'m <span>G</span>onna <span>M</span>ake <span>I</span>t <span>T</span>his <span>T</span>ime</p>
     </div>
   

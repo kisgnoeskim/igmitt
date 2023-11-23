@@ -15,7 +15,7 @@ body {
   align-items: flex-start;
   height: 100vh;
   background-color: #ffffff;
-  margin: 0px 30px 0; /* 여기서 100px이 margin-top 값입니다. */
+  margin: 0px 40px 0; /* 여기서 100px이 margin-top 값입니다. */
 }
 
 /* 나머지 스타일들은 동일하게 유지 */
@@ -108,10 +108,10 @@ button {
 .bottom-right-text {
   font-family: Pretendard;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 25px;
   position: fixed;
   bottom: 10px;
-  right: 20px;
+  right: 30px;
   margin: 10px; /* 원하는 여백 설정 */
 }
 
@@ -153,12 +153,49 @@ button {
   font-size: 30px;
 }
 
-/*
-.nav-item:hover {
-  background-color: #007BFF;
-  color: #FFF;
+
+.stop {
+  position: fixed;
+  top: 85px;
+  right: 40px;
+  text-align: right;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }
-*/
 
+#stopwatch {
+  font-size: 30px;
+  font-weight: 500;
+  font-family: Pretendard;
+  margin-bottom: 10px;
+  border: 2px solid #ddd;
+  background-color: #fff;
+  border-radius: 10px;
+  color: black;
+  text-align: right;
+}
 
+.stop_btn {
+  color: white;
+  background-color: #007BFF;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 10px 20px;
+  width: 90px;
+  margin: 3px;
+  cursor: pointer;
+}
+.stop_btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
 
+.ddd {
+  position: fixed;
+  bottom: 150px;
+  left: 30%;
+  font-family: Pretendard;
+  font-size: 17px;
+}

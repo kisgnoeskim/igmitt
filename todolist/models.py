@@ -6,7 +6,14 @@ class Task(models.Model):
 
     def __str__(self):
         return self.title
-
+    
 class Stopwatch(models.Model):
+    elapsed_time = models.IntegerField(default=0)
     is_running = models.BooleanField(default=False)
-    elapsed_time = models.PositiveIntegerField(default=0)
+
+class Quote(models.Model):
+    author = models.CharField(max_length=100)
+    text = models.TextField()
+
+    def __str__(self):
+        return f'{self.author} - {self.text}'

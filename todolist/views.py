@@ -1,19 +1,23 @@
 from django.shortcuts import redirect, render
-from .models import Task
+from .models import Quote, Task
 from django.views import View
 from django.http import JsonResponse
 from .models import Stopwatch
 from django.utils import timezone
+import time
+
 
 def index(request):
     tasks = Task.objects.all()
     today = timezone.now()
-    return render(request, 'todo/task_list.html', {'tasks': tasks, 'today': today})
+    stopwatch = Stopwatch.objects.first()
+    return render(request, 'todo/task_list.html', {'tasks': tasks, 'today': today, 'stopwatch': stopwatch})
 
 def task_list(request):
     tasks = Task.objects.all()
     today = timezone.now()
-    return render(request, 'todo/task_list.html', {'tasks': tasks, 'today': today})
+    quote = Quote.objects.order_by('?').first()  # 무작위 명언 선택
+    return render(request, 'todo/task_list.html', {'tasks': tasks, 'today': today, 'quote':quote})
 
 def add_task(request):
     if request.method == 'POST':
@@ -33,32 +37,16 @@ def delete_task(request, task_id):
     task.delete()
     return redirect('todolist:task_list')
 
-class StopwatchView(View):
-    template_name = 'todo/task_list.html'
+def update_time(request):
+    if request.is_ajax() and request.method == 'POST':
+        stopwatch = Stopwatch.objects.first()
+        stopwatch.elapsed_time += 1
+        stopwatch.save()
+        return JsonResponse({'elapsed_time': stopwatch.elapsed_time})
+    return JsonResponse({}, status=400)
 
-    def get(self, request):
-        stopwatch, created = Stopwatch.objects.get_or_create(pk=1)
-        return render(request, self.template_name, {'stopwatch': stopwatch})
+def timer(request):
+    # 세션에서 'elapsed_time' 값을 가져오고, 없으면 기본값으로 0을 사용
+    elapsed_time = request.session.get('elapsed_time', 0)
 
-    def post(self, request):
-        stopwatch = Stopwatch.objects.get(pk=1)
-
-        if request.POST.get('action') == 'start':
-            stopwatch.is_running = True
-            stopwatch.save()
-
-        elif request.POST.get('action') == 'stop':
-            stopwatch.is_running = False
-            stopwatch.save()
-
-        elif request.POST.get('action') == 'reset':
-            stopwatch.is_running = False
-            stopwatch.elapsed_time = 0
-            stopwatch.save()
-
-        elif request.POST.get('action') == 'update':
-            if stopwatch.is_running:
-                stopwatch.elapsed_time += 1
-                stopwatch.save()
-
-        return JsonResponse({'elapsed_time': stopwatch.elapsed_time, 'is_running': stopwatch.is_running})
+    return render(request, 'timer.html', {'elapsed_time': elapsed_time})
